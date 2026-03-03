@@ -2,6 +2,7 @@ name: ${DOCKER_NAME}
 services:
   nginx:
     image: "nginx:1.21.3"
+    container_name: nginx
     # ports:
     #   - "${HTTP_BIND}:${HTTP_PORT}:80"
     volumes:
@@ -12,6 +13,7 @@ services:
 
   cockroach:
     image: cockroachdb/cockroach:latest-v24.2
+    container_name: cockroach
     command: start-single-node --accept-sql-without-tls
     environment:
       - COCKROACH_DATABASE=${CR_DATABASE}
@@ -26,6 +28,7 @@ services:
 
   redpanda:
     image: docker.redpanda.com/redpandadata/redpanda:v24.3.6
+    container_name: redpanda
     command:
       - redpanda
       - start
@@ -55,6 +58,7 @@ services:
 
   minio:
     image: "minio/minio"
+    container_name: minio
     command: server /data --address ":9000" --console-address ":9001"
     volumes:
       - ${VOLUME_FILES_PATH:-files}:/data
@@ -68,6 +72,7 @@ services:
 
   elastic:
     image: "elasticsearch:7.14.2"
+    container_name: elastic
     command: |
       /bin/sh -c "./bin/elasticsearch-plugin list | grep -q ingest-attachment || yes | ./bin/elasticsearch-plugin install --silent ingest-attachment;
       /usr/local/bin/docker-entrypoint.sh eswrapper"
@@ -112,6 +117,7 @@ services:
     container_name: hulypulse
     # ports:
     #   - 8099:8099
+    container_name: hulypulse
     environment:
       - HULY_BIND_PORT=8099
       - HULY_LOG=info
@@ -132,6 +138,7 @@ services:
 
   rekoni:
     image: hardcoreeng/rekoni-service:${HULY_VERSION}
+    container_name: rekoni
     environment:
       - SECRET=${SECRET}
     deploy:
@@ -144,6 +151,7 @@ services:
 
   transactor:
     image: hardcoreeng/transactor:${HULY_VERSION}
+    container_name: transactor
     environment:
       - SERVER_PORT=3333
       - SERVER_SECRET=${SECRET}
@@ -188,6 +196,7 @@ services:
 
   collaborator:
     image: hardcoreeng/collaborator:${HULY_VERSION}
+    container_name: collaborator
     environment:
       - COLLABORATOR_PORT=3078
       - SECRET=${SECRET}
@@ -200,6 +209,7 @@ services:
 
   account:
     image: hardcoreeng/account:${HULY_VERSION}
+    container_name: account
     environment:
       - SERVER_PORT=3000
       - SERVER_SECRET=${SECRET}
@@ -219,6 +229,7 @@ services:
 
   workspace:
     image: hardcoreeng/workspace:${HULY_VERSION}
+    container_name: workspace
     environment:
       - SERVER_SECRET=${SECRET}
       - DB_URL=${CR_DB_URL}
@@ -235,6 +246,7 @@ services:
 
   front:
     image: hardcoreeng/front:${HULY_VERSION}
+    container_name: front
     environment:
       - SERVER_PORT=8080
       - SERVER_SECRET=${SECRET}
@@ -267,6 +279,7 @@ services:
 
   fulltext:
     image: hardcoreeng/fulltext:${HULY_VERSION}
+    container_name: fulltext
     environment:
       - SERVER_SECRET=${SECRET}
       - DB_URL=${CR_DB_URL}
@@ -283,6 +296,7 @@ services:
 
   stats:
     image: hardcoreeng/stats:${HULY_VERSION}
+    container_name: stats
     environment:
       - PORT=4900
       - SERVER_SECRET=${SECRET}
@@ -306,6 +320,7 @@ services:
   
   github:
     image: hardcoreeng/github:${HULY_VERSION}
+    container_name: github
     environment:
       # - PRIVATE_KEY=${GITHUB_PRIVATE_KEY}
       - PORT=3500
