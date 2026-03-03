@@ -212,12 +212,12 @@ services:
       - SERVER_PORT=3000
       - SERVER_SECRET=${SECRET}
       - DB_URL=${CR_DB_URL}
-      - TRANSACTOR_URL=ws://transactor:3333;ws${SECURE:+s}://${HOST_ADDRESS}/_transactor
+      - TRANSACTOR_URL=ws://transactor:3333;wss://${HOST_ADDRESS}/_transactor
       - STORAGE_CONFIG=minio|minio?accessKey=minioadmin&secretKey=minioadmin
-      - FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}
-      - STATS_URL=http${SECURE:+s}://${HOST_ADDRESS}/_stats
+      - FRONT_URL=https://${HOST_ADDRESS}
+      - STATS_URL=https://${HOST_ADDRESS}/_stats
       - MODEL_ENABLED=*
-      - ACCOUNTS_URL=http${SECURE:+s}://${HOST_ADDRESS}/_accounts
+      - ACCOUNTS_URL=https://${HOST_ADDRESS}/_accounts
       - ACCOUNT_PORT=3000
       - QUEUE_CONFIG=redpanda:9092
       - MAIL_URL=http://mail:8097
@@ -231,7 +231,7 @@ services:
     environment:
       - SERVER_SECRET=${SECRET}
       - DB_URL=${CR_DB_URL}
-      - TRANSACTOR_URL=ws://transactor:3333;ws${SECURE:+s}://${HOST_ADDRESS}/_transactor
+      - TRANSACTOR_URL=ws://transactor:3333;wss://${HOST_ADDRESS}/_transactor
       - STORAGE_CONFIG=minio|minio?accessKey=minioadmin&secretKey=minioadmin
       - MODEL_ENABLED=*
       - ACCOUNTS_URL=http://account:3000
@@ -248,24 +248,24 @@ services:
     environment:
       - SERVER_PORT=8080
       - SERVER_SECRET=${SECRET}
-      - LOVE_ENDPOINT=http${SECURE:+s}://${HOST_ADDRESS}/_love
-      - ACCOUNTS_URL=http${SECURE:+s}://${HOST_ADDRESS}/_accounts
+      - LOVE_ENDPOINT=https://${HOST_ADDRESS}/_love
+      - ACCOUNTS_URL=https://${HOST_ADDRESS}/_accounts
       - ACCOUNTS_URL_INTERNAL=http://account:3000
-      - REKONI_URL=http${SECURE:+s}://${HOST_ADDRESS}/_rekoni
-      - CALENDAR_URL=http${SECURE:+s}://${HOST_ADDRESS}/_calendar
-      - GMAIL_URL=http${SECURE:+s}://${HOST_ADDRESS}/_gmail
-      - TELEGRAM_URL=http${SECURE:+s}://${HOST_ADDRESS}/_telegram
-      - STATS_URL=http${SECURE:+s}://${HOST_ADDRESS}/_stats
+      - REKONI_URL=https://${HOST_ADDRESS}/_rekoni
+      - CALENDAR_URL=https://${HOST_ADDRESS}/_calendar
+      - GMAIL_URL=https://${HOST_ADDRESS}/_gmail
+      - TELEGRAM_URL=https://${HOST_ADDRESS}/_telegram
+      - STATS_URL=https://${HOST_ADDRESS}/_stats
       - UPLOAD_URL=/files
       - ELASTIC_URL=http://elastic:9200
-      - COLLABORATOR_URL=ws${SECURE:+s}://${HOST_ADDRESS}/_collaborator
+      - COLLABORATOR_URL=wss://${HOST_ADDRESS}/_collaborator
       - STORAGE_CONFIG=minio|minio?accessKey=minioadmin&secretKey=minioadmin
       - TITLE=${TITLE:-Huly Self Host}
       - DEFAULT_LANGUAGE=${DEFAULT_LANGUAGE:-en}
       - LAST_NAME_FIRST=${LAST_NAME_FIRST:-true}
       - DESKTOP_UPDATES_CHANNEL=${DESKTOP_CHANNEL}
-      - PULSE_URL=http${SECURE:+s}://${HOST_ADDRESS}/_pulse
-      - GITHUB_URL=http${SECURE:+s}://${HOST_ADDRESS}/_github
+      - PULSE_URL=https://${HOST_ADDRESS}/_pulse
+      - GITHUB_URL=https://${HOST_ADDRESS}/_github
       - GITHUB_APP=${GITHUB_APPNAME}
       - GITHUB_CLIENTID=${GITHUB_CLIENT_ID}
       - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
@@ -329,9 +329,9 @@ services:
       - APP_ID=${GITHUB_APPID}
       - CLIENT_ID=${GITHUB_CLIENT_ID}
       - CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
-      - COLLABORATOR_URL=ws${SECURE:+s}://${HOST_ADDRESS}/_collaborator
+      - COLLABORATOR_URL=wss://${HOST_ADDRESS}/_collaborator
       - WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET}
-      - FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}
+      - FRONT_URL=https://${HOST_ADDRESS}
       - BOT_NAME=Huly[bot]
       - PRIVATE_KEY=|
         -----BEGIN RSA PRIVATE KEY-----
