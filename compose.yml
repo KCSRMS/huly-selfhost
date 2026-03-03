@@ -156,6 +156,8 @@ services:
       - LAST_NAME_FIRST=${LAST_NAME_FIRST:-true}
       - QUEUE_CONFIG=redpanda:9092
       - WEB_PUSH_URL=http://ses:3335
+      - MAIL_URL=http://mail:8097
+      - PULSE_URL=http://hulypulse:8099
     restart: unless-stopped
     networks:
       - huly_net
@@ -164,8 +166,18 @@ services:
   image: hardcoreeng/ses:${HULY_VERSION}
   environment:
     - PORT=3335
-    - SOURCE=mail@example.com
+    - SOURCE=${EMAIL_FROM}
     - ACCESS_KEY=none
+  restart: unless-stopped
+  networks:
+    - huly_net
+
+  mail:
+  image: hardcoreeng/mail:${HULY_VERSION}
+  container_name: mail
+  environment:
+    - PORT=8097
+    - SOURCE=${EMAIL_FROM}
   restart: unless-stopped
   networks:
     - huly_net
@@ -196,6 +208,7 @@ services:
       - ACCOUNTS_URL=http${SECURE:+s}://${HOST_ADDRESS}/_accounts
       - ACCOUNT_PORT=3000
       - QUEUE_CONFIG=redpanda:9092
+      - MAIL_URL=http://mail:8097
     restart: unless-stopped
     networks:
       - huly_net
@@ -237,6 +250,7 @@ services:
       - DEFAULT_LANGUAGE=${DEFAULT_LANGUAGE:-en}
       - LAST_NAME_FIRST=${LAST_NAME_FIRST:-true}
       - DESKTOP_UPDATES_CHANNEL=${DESKTOP_CHANNEL}
+      - PULSE_URL=http${SECURE:+s}://${HOST_ADDRESS}/_pulse
     restart: unless-stopped
     networks:
       - huly_net
@@ -276,6 +290,47 @@ services:
     environment:
       - HULY_DB_CONNECTION=${CR_DB_URL}
       - HULY_TOKEN_SECRET=${SECRET}
+    restart: unless-stopped
+    networks:
+      - huly_net
+  
+  github:
+  image: hardcoreeng/github:${HULY_VERSION}
+  # ports:
+  #   - 3500:3500
+  environment:
+    - PORT=3500
+    - STORAGE_CONFIG=minio|minio?accessKey=minioadmin&secretKey=minioadmin
+    - SERVER_SECRET=${SECRET}
+    - ACCOUNTS_URL=http://account:3000
+    - STATS_URL=http://stats:4900
+    - APP_ID=${GITHUB_APPID}
+    - CLIENT_ID=${GITHUB_CLIENTID}
+    - CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+    - PRIVATE_KEY=${GITHUB_PRIVATE_KEY}
+    - COLLABORATOR_URL=ws${SECURE:+s}://${HOST_ADDRESS}/_collaborator
+    - WEBHOOK_SECRET=secret
+    - FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}
+    - BOT_NAME=${yourAppName}[bot]
+  restart: unless-stopped
+  networks:
+    - huly_net
+    
+  love:
+    image: hardcoreeng/love:${HULY_VERSION}
+    container_name: love
+    # ports:
+    #   - 8096:8096
+    environment:
+      - PORT=8096
+      - SECRET=${SECRET}
+      - ACCOUNTS_URL=http://account:3000
+      - DB_URL=${CR_DB_URL}
+      - STORAGE_CONFIG=minio|minio?accessKey=minioadmin&secretKey=minioadmin
+      - STORAGE_PROVIDER_NAME=minio
+      # - LIVEKIT_HOST=<LIVEKIT_HOST>
+      # - LIVEKIT_API_KEY=<LIVEKIT_API_KEY>
+      # - LIVEKIT_API_SECRET=<LIVEKIT_API_SECRET>
     restart: unless-stopped
     networks:
       - huly_net
