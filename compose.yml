@@ -254,6 +254,7 @@ services:
       - GITHUB_URL=http${SECURE:+s}://${HOST_ADDRESS}/_github
       - GITHUB_APP=${GITHUB_APPNAME}
       - GITHUB_CLIENTID=${GITHUB_CLIENTID}
+      - LIVEKIT_WS_URL=${LIVEKIT_URL}
     restart: unless-stopped
     networks:
       - huly_net
@@ -299,8 +300,6 @@ services:
   
   github:
     image: hardcoreeng/github:${HULY_VERSION}
-    # ports:
-    #   - 3500:3500
     environment:
       # - PRIVATE_KEY=${GITHUB_PRIVATE_KEY}
       - PORT=3500
@@ -350,8 +349,6 @@ services:
   love:
     image: hardcoreeng/love:${HULY_VERSION}
     container_name: love
-    # ports:
-    #   - 8096:8096
     environment:
       - PORT=8096
       - SECRET=${SECRET}
@@ -359,17 +356,15 @@ services:
       - DB_URL=${CR_DB_URL}
       - STORAGE_CONFIG=minio|minio?accessKey=minioadmin&secretKey=minioadmin
       - STORAGE_PROVIDER_NAME=minio
-      # - LIVEKIT_HOST=<LIVEKIT_HOST>
-      # - LIVEKIT_API_KEY=<LIVEKIT_API_KEY>
-      # - LIVEKIT_API_SECRET=<LIVEKIT_API_SECRET>
+      - LIVEKIT_HOST=${LIVEKIT_URL}
+      - LIVEKIT_API_KEY=${LIVEKIT_API_KEY}
+      - LIVEKIT_API_SECRET=${LIVEKIT_API_SECRET}
     restart: unless-stopped
     networks:
       - huly_net
 
   # calendar:
   #   image: hardcoreeng/calendar:${HULY_VERSION}
-  #   # ports:
-  #   #   - 8095:8095
   #   environment:
   #     - MONGO_URI=mongodb://mongodb:27017
   #     - MONGO_DB=%calendar-service
