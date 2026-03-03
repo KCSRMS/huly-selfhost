@@ -155,9 +155,20 @@ services:
       - STATS_URL=http://stats:4900
       - LAST_NAME_FIRST=${LAST_NAME_FIRST:-true}
       - QUEUE_CONFIG=redpanda:9092
+      - WEB_PUSH_URL=http://ses:3335
     restart: unless-stopped
     networks:
       - huly_net
+
+  ses:
+  image: hardcoreeng/ses:${HULY_VERSION}
+  environment:
+    - PORT=3335
+    - SOURCE=mail@example.com
+    - ACCESS_KEY=none
+  restart: unless-stopped
+  networks:
+    - huly_net
 
   collaborator:
     image: hardcoreeng/collaborator:${HULY_VERSION}
