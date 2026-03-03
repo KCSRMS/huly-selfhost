@@ -257,7 +257,9 @@ services:
       - PULSE_URL=http${SECURE:+s}://${HOST_ADDRESS}/_pulse
       - GITHUB_URL=http${SECURE:+s}://${HOST_ADDRESS}/_github
       - GITHUB_APP=${GITHUB_APPNAME}
+      - GITHUB_CLIENTID=${GITHUB_CLIENT_ID}
       - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
       - LIVEKIT_WS_URL=${LIVEKIT_URL}
     restart: unless-stopped
     networks:
@@ -315,9 +317,9 @@ services:
       - CLIENT_ID=${GITHUB_CLIENT_ID}
       - CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
       - COLLABORATOR_URL=ws${SECURE:+s}://${HOST_ADDRESS}/_collaborator
-      - WEBHOOK_SECRET=secret
+      - WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET}
       - FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}
-      - BOT_NAME=${yourAppName}[bot]
+      - BOT_NAME=Huly[bot]
       - PRIVATE_KEY=|
         -----BEGIN RSA PRIVATE KEY-----
         MIIEogIBAAKCAQEA0/fT06sRfxYkxG47VYGmC92GVo+1ArhZbzaGW/MXynV6i0UB
