@@ -251,6 +251,9 @@ services:
       - LAST_NAME_FIRST=${LAST_NAME_FIRST:-true}
       - DESKTOP_UPDATES_CHANNEL=${DESKTOP_CHANNEL}
       - PULSE_URL=http${SECURE:+s}://${HOST_ADDRESS}/_pulse
+      - GITHUB_URL=http${SECURE:+s}://${HOST_ADDRESS}/_github
+      - GITHUB_APP=${GITHUB_APPNAME}
+      - GITHUB_CLIENTID=${GITHUB_CLIENTID}
     restart: unless-stopped
     networks:
       - huly_net
@@ -299,6 +302,7 @@ services:
     # ports:
     #   - 3500:3500
     environment:
+      # - PRIVATE_KEY=${GITHUB_PRIVATE_KEY}
       - PORT=3500
       - STORAGE_CONFIG=minio|minio?accessKey=minioadmin&secretKey=minioadmin
       - SERVER_SECRET=${SECRET}
@@ -307,11 +311,38 @@ services:
       - APP_ID=${GITHUB_APPID}
       - CLIENT_ID=${GITHUB_CLIENTID}
       - CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
-      - PRIVATE_KEY=${GITHUB_PRIVATE_KEY}
       - COLLABORATOR_URL=ws${SECURE:+s}://${HOST_ADDRESS}/_collaborator
       - WEBHOOK_SECRET=secret
       - FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}
       - BOT_NAME=${yourAppName}[bot]
+      - PRIVATE_KEY=|
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEogIBAAKCAQEA0/fT06sRfxYkxG47VYGmC92GVo+1ArhZbzaGW/MXynV6i0UB
+        RkgUgavCx1zKlwH/zVw+R2eFNjGI1HhU2nyVDN/+Xky2whSOjSdlt/Pvtl0PUGYx
+        iU5j0KLjgew9SHhds7ZPpzUidLTAzkeOL29eauwxCq5BBjnV7MLrTlOEkVli9nqu
+        qSHGV5cBInH8+Sv5rnEDL+ebobUHYDILBOPmYNuwLofRRbjFZhSja22Bg0KJ0qKi
+        PTtVq3KesDFiZSKR1nkReQ2mVPRQn/At5VgdqyV1cxyllm97KqYa1WPGZFLyw9WN
+        UuuWXFDODba3piGZqNJeFyyCKAsyjIYQ3J7XwQIDAQABAoIBAGqGmgY+asSbtE6j
+        t135kiFUazcFccq0Kv4hQNTlDofJEpT7UPCpOOUSFQlsMMRDVPM38HSiKehabJGb
+        B8nl4mJeD9AEbbSL8DgwHIaeKVJU4mVddney1ab8tamNuB67nxu5+73kjjRowpzo
+        iSR9q83AdcUQXc1rM3+RVgA/KNiCUWKCyfVP+eOqNWd4QXjBXYa0gTFjuTOBxl6d
+        xo1I2ys7UXN70d75CSV8qupL0ZljfuvPumlIjTOXqDQMvSv6TEWTfqZTPmZfXEi+
+        E/u6YWrubmHngMHCpqVwVr4upScjJKQehecysZmnUnWa7dqLZwZRBlhTyxWNJe7/
+        x+xM+AECgYEA8BpBG0BwaSLTdlsp4SEECsrqU3ivmOeGQA0gwUCNnT2a0jeW5NgK
+        qtP5yvugD/4kII2JKuweYHTW0jQHWH3IdJdNtbbHHsBYb+rIH75WtU3rNunPSdk7
+        4W8EHS3hznqN6h2tVfkaTWPBKWpp0Blnwv6nfejBWOHnZEJkhfAeo3ECgYEA4gCx
+        XT+Tdgzfs649p66Yzi5QdxXCGE9k/GyXf0f6sHN6mNQUI3/QfTObPxsfHoeg7Vkh
+        39XovMhiv8Vv+6idhEgv/Tq0rY+HBsMBJ8HJh2nZ+kI+2XWqrKKk0ZRQYlKK7Vtz
+        7+wgD/qrCHZtBnkw9ywQScEmTNTIH6cMKSSssVECgYBkzuEfDAMmYVTfkI8Y0r/b
+        uC6CNV2kmTCom9pwySWsKz1hna1hD8QKzU1HiDZAALgyYrqApvpqDSRUxTuAT+9l
+        5FDgRol7w85dzvmPOl81aC2ltK0vmGGn2PClP6pbAuGqtiMcwaXlcEidluwuTzxd
+        hoXUO3FSXCbG1YlXIuX6QQKBgC0SUkz0duYeHyboYudkDJlh5y44qqLKgqtMxNHf
+        ewFhpluAQBvsS5oMhrOJJyWhitiK5BSNxoKPvBHewDyCHhfZhaiM4qeSbi1NCpfx
+        L83PsGcWew5HRyhyr0gUugtBxu8bQ/3fK23EYgOoCoo19Sv2H7F10buU2+xkFirG
+        Y6JhAoGAKEMUPt/6ly+RSUMAaMZEInZIMwHkgEZJBZY/ktyzbTYdRPDwO9ROUIz5
+        xRlvxZ/EwsaLMpyptuZ5ZPprYUMadZCxNwXjn33bk5wdIzM2CODrELYmoiIgHl9O
+        cC5i3P0veTQbyRH5iaEizszgUMBwB5QDfGixRJLg0W3YQJHWt0M=
+        -----END RSA PRIVATE KEY-----
     restart: unless-stopped
     networks:
       - huly_net
