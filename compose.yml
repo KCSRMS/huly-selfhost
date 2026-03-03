@@ -162,15 +162,15 @@ services:
     networks:
       - huly_net
 
-  ses:
-    image: hardcoreeng/ses:${HULY_VERSION}
-    environment:
-      - PORT=3335
-      - SOURCE=${EMAIL_FROM}
-      - ACCESS_KEY=none
-    restart: unless-stopped
-    networks:
-      - huly_net
+  # ses:
+  #   image: hardcoreeng/ses:${HULY_VERSION}
+  #   environment:
+  #     - PORT=3335
+  #     - SOURCE=${EMAIL_FROM}
+  #     - ACCESS_KEY=none
+  #   restart: unless-stopped
+  #   networks:
+  #     - huly_net
 
   mail:
     image: hardcoreeng/mail:${HULY_VERSION}
