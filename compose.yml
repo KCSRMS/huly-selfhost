@@ -116,7 +116,6 @@ services:
     container_name: hulypulse
     # ports:
     #   - 8099:8099
-    container_name: hulypulse
     environment:
       - HULY_BIND_PORT=8099
       - HULY_LOG=info
