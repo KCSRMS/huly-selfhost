@@ -42,7 +42,6 @@ services:
       - --mode dev-container
       - --smp 1
       - --default-log-level=info
-    container_name: redpanda
     volumes:
       - ${VOLUME_REDPANDA_PATH:-redpanda}:/var/lib/redpanda/data
     environment:
