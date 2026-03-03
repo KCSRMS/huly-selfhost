@@ -162,8 +162,8 @@ services:
     networks:
       - huly_net
 
-  # ses:
-  #   image: hardcoreeng/ses:${HULY_VERSION}
+  # notification:
+  #   image: hardcoreeng/notification:${HULY_VERSION}
   #   environment:
   #     - PORT=3335
   #     - SOURCE=${EMAIL_FROM}
