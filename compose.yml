@@ -163,24 +163,24 @@ services:
       - huly_net
 
   ses:
-  image: hardcoreeng/ses:${HULY_VERSION}
-  environment:
-    - PORT=3335
-    - SOURCE=${EMAIL_FROM}
-    - ACCESS_KEY=none
-  restart: unless-stopped
-  networks:
-    - huly_net
+    image: hardcoreeng/ses:${HULY_VERSION}
+    environment:
+      - PORT=3335
+      - SOURCE=${EMAIL_FROM}
+      - ACCESS_KEY=none
+    restart: unless-stopped
+    networks:
+      - huly_net
 
   mail:
-  image: hardcoreeng/mail:${HULY_VERSION}
-  container_name: mail
-  environment:
-    - PORT=8097
-    - SOURCE=${EMAIL_FROM}
-  restart: unless-stopped
-  networks:
-    - huly_net
+    image: hardcoreeng/mail:${HULY_VERSION}
+    container_name: mail
+    environment:
+      - PORT=8097
+      - SOURCE=${EMAIL_FROM}
+    restart: unless-stopped
+    networks:
+      - huly_net
 
   collaborator:
     image: hardcoreeng/collaborator:${HULY_VERSION}
@@ -295,27 +295,27 @@ services:
       - huly_net
   
   github:
-  image: hardcoreeng/github:${HULY_VERSION}
-  # ports:
-  #   - 3500:3500
-  environment:
-    - PORT=3500
-    - STORAGE_CONFIG=minio|minio?accessKey=minioadmin&secretKey=minioadmin
-    - SERVER_SECRET=${SECRET}
-    - ACCOUNTS_URL=http://account:3000
-    - STATS_URL=http://stats:4900
-    - APP_ID=${GITHUB_APPID}
-    - CLIENT_ID=${GITHUB_CLIENTID}
-    - CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
-    - PRIVATE_KEY=${GITHUB_PRIVATE_KEY}
-    - COLLABORATOR_URL=ws${SECURE:+s}://${HOST_ADDRESS}/_collaborator
-    - WEBHOOK_SECRET=secret
-    - FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}
-    - BOT_NAME=${yourAppName}[bot]
-  restart: unless-stopped
-  networks:
-    - huly_net
-    
+    image: hardcoreeng/github:${HULY_VERSION}
+    # ports:
+    #   - 3500:3500
+    environment:
+      - PORT=3500
+      - STORAGE_CONFIG=minio|minio?accessKey=minioadmin&secretKey=minioadmin
+      - SERVER_SECRET=${SECRET}
+      - ACCOUNTS_URL=http://account:3000
+      - STATS_URL=http://stats:4900
+      - APP_ID=${GITHUB_APPID}
+      - CLIENT_ID=${GITHUB_CLIENTID}
+      - CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+      - PRIVATE_KEY=${GITHUB_PRIVATE_KEY}
+      - COLLABORATOR_URL=ws${SECURE:+s}://${HOST_ADDRESS}/_collaborator
+      - WEBHOOK_SECRET=secret
+      - FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}
+      - BOT_NAME=${yourAppName}[bot]
+    restart: unless-stopped
+    networks:
+      - huly_net
+
   love:
     image: hardcoreeng/love:${HULY_VERSION}
     container_name: love
