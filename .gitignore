@@ -8,3 +8,8 @@ huly_v7.conf
 .cr.secret
 .rp.secret
 .idea
+
+.specstory
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
