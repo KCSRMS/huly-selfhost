@@ -232,6 +232,11 @@ services:
     environment:
       - SERVER_PORT=8080
       - SERVER_SECRET=${SECRET}
+      # Workspace GitHub integration (browser builds oauth/authorize using config.json — not account OAuth).
+      # See platform dev/prod: GITHUB_CLIENTID / GITHUB_APP / GITHUB_URL → github.metadata.GithubClientID.
+      - GITHUB_URL=http${SECURE:+s}://${HOST_ADDRESS}/_github
+      - GITHUB_APP=${GITHUB_APPNAME}
+      - GITHUB_CLIENTID=${GITHUB_CLIENT_ID}
       - LOVE_ENDPOINT=http${SECURE:+s}://${HOST_ADDRESS}/_love
       - ACCOUNTS_URL=http${SECURE:+s}://${HOST_ADDRESS}/_accounts
       - ACCOUNTS_URL_INTERNAL=http://account:3000
