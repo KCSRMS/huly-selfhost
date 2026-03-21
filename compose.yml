@@ -10,10 +10,17 @@ services:
       - dokploy-network
     labels:
       - traefik.docker.network=dokploy-network
+      # HTTP (port 80) — e.g. origin behind Cloudflare or local tests
       - traefik.http.routers.project-management-huly-czhnux-93-web.rule=Host(`huly.proxy.kcsgis.com`)
       - traefik.http.routers.project-management-huly-czhnux-93-web.entrypoints=web
       - traefik.http.services.project-management-huly-czhnux-93-web.loadbalancer.server.port=80
       - traefik.http.routers.project-management-huly-czhnux-93-web.service=project-management-huly-czhnux-93-web
+      # HTTPS (port 443) — without this, websecure may match another service (e.g. front) and /_github never hits nginx
+      - traefik.http.routers.project-management-huly-czhnux-93-websecure.rule=Host(`huly.proxy.kcsgis.com`)
+      - traefik.http.routers.project-management-huly-czhnux-93-websecure.entrypoints=websecure
+      - traefik.http.routers.project-management-huly-czhnux-93-websecure.tls=true
+      - traefik.http.routers.project-management-huly-czhnux-93-websecure.tls.certresolver=letsencrypt
+      - traefik.http.routers.project-management-huly-czhnux-93-websecure.service=project-management-huly-czhnux-93-web
       - traefik.enable=true
 
   cockroach:
