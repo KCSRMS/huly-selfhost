@@ -146,8 +146,6 @@ services:
 
   notification:
     image: hardcoreeng/notification:${HULY_VERSION}
-    depends_on:
-      - stats
     environment:
       - PORT=8091
       - SOURCE=${EMAIL_FROM}
@@ -160,8 +158,6 @@ services:
 
   transactor:
     image: hardcoreeng/transactor:${HULY_VERSION}
-    depends_on:
-      - notification
     environment:
       - SERVER_PORT=3333
       - SERVER_SECRET=${SECRET}
