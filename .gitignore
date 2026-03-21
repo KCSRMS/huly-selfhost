@@ -1,3 +1,5 @@
+kcsrms.env
+
 letsencrypt/
 traefik/docker-compose.yaml
 nginx.conf
