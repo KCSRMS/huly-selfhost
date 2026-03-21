@@ -203,9 +203,10 @@ services:
       - ACCOUNTS_URL=http${SECURE:+s}://${HOST_ADDRESS}/_accounts
       - ACCOUNT_PORT=3000
       - QUEUE_CONFIG=redpanda:9092
-      # GitHub OAuth sign-in (README: Configure GitHub OAuth) — required or authorize URL has empty client_id=
-      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
-      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+      # GitHub OAuth: pass-through from project env (e.g. Dokploy Environment tab — copy from kcsrms.env).
+      # Do not use GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}; when unset that becomes "" and breaks OAuth.
+      - GITHUB_CLIENT_ID
+      - GITHUB_CLIENT_SECRET
     restart: unless-stopped
     networks:
       - huly_net
