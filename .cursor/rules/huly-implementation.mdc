@@ -1,0 +1,36 @@
+---
+description: Huly self-host implementation — compose, nginx, env, phased optional services
+globs: compose.yml,.huly.nginx,README.md,guides/**/*.md,.cursor/docs/**/*.md
+alwaysApply: false
+---
+
+# Huly self-host implementation
+
+## Scope
+
+- Treat `compose.yml`, `.huly.nginx`, `README.md`, and `guides/` as the source of truth for how services are wired.
+- Implementation plans under `.cursor/docs/` are **artifacts**: keep them aligned with the repo when behavior changes.
+- For optional services, follow the phase order and checklist in `.cursor/docs/OPTIONAL_SERVICES_IMPLEMENTATION_PLAN.md` unless a task explicitly depends on a different step.
+
+## Security
+
+- Never commit real credentials. Use `.env` (gitignored) or a secrets manager.
+- Do not paste secrets into docs, rules, or commit messages.
+
+## Optional / phased work
+
+- Prefer the **documented phase order** when enabling optional services (notifications → mail → pulse → love → print → export → GitHub), unless a change explicitly depends on another step.
+- When adding a service: define the container in `compose.yml`, set required env on **consumers** (e.g. `account`, `transactor`, `front`), uncomment or add matching **`location`** blocks in `.huly.nginx`, and reload/restart as required.
+- Keep image tags consistent (e.g. same `HULY_VERSION` / pattern as existing services).
+
+## Changes checklist (mental model)
+
+1. Compose + env variables for new or updated services.
+2. Nginx routes for new HTTP paths (`/_pulse`, `/_love`, etc.).
+3. README or `guides/` only when user-facing steps or troubleshooting change.
+4. If an implementation plan exists for the feature, update its steps or **Current baseline** so it stays accurate.
+
+## Style of edits
+
+- Minimal diffs: change only what the task requires; avoid unrelated refactors.
+- Prefer explicit service names, ports, and env var names that already appear in the repo.

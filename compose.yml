@@ -144,8 +144,24 @@ services:
     networks:
       - huly_net
 
+  notification:
+    image: hardcoreeng/notification:${HULY_VERSION}
+    depends_on:
+      - stats
+    environment:
+      - PORT=8091
+      - SOURCE=${EMAIL_FROM}
+      - STATS_URL=http://stats:4900
+      - PUSH_PUBLIC_KEY=${WEBPUSH_VAPID_PUBLIC_KEY}
+      - PUSH_PRIVATE_KEY=${WEBPUSH_VAPID_PRIVATE_KEY}
+    restart: unless-stopped
+    networks:
+      - huly_net
+
   transactor:
     image: hardcoreeng/transactor:${HULY_VERSION}
+    depends_on:
+      - notification
     environment:
       - SERVER_PORT=3333
       - SERVER_SECRET=${SECRET}
@@ -160,6 +176,7 @@ services:
       - WEBPUSH_VAPID_PUBLIC_KEY=${WEBPUSH_VAPID_PUBLIC_KEY}
       - WEBPUSH_VAPID_PRIVATE_KEY=${WEBPUSH_VAPID_PRIVATE_KEY}
       - WEBPUSH_VAPID_SUBJECT=${WEBPUSH_VAPID_SUBJECT}
+      - WEB_PUSH_URL=http://notification:8091
     restart: unless-stopped
     networks:
       - huly_net

@@ -1,0 +1,53 @@
+---
+description: Markdown that satisfies markdownlint defaults (MD001–MD046)
+globs: **/*.md
+alwaysApply: false
+---
+
+# Markdown (markdownlint)
+
+Follow [markdownlint rules](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md). If the repo adds `.markdownlint.json` or `.markdownlint-cli2.jsonc`, follow that config instead of this list.
+
+## Headings
+
+- **MD001** — Heading levels increase by one at a time (no `##` then `####`).
+- **MD003** — Use **ATX** style (`#` … `######`), not Setext underlines.
+- **MD018 / MD019** — One space after `#`; no missing or multiple spaces.
+- **MD022** — Blank line **before** and **after** headings (except document start).
+- **MD023** — Headings start at the beginning of the line (no leading indent).
+- **MD025** — At most **one** top-level `#` per file (single H1 / title).
+- **MD026** — No trailing punctuation in headings (`: . , ; ! ?`).
+
+## Lists
+
+- **MD004** — One unordered-list marker style per file; stay consistent (`-`, `*`, or `+`).
+- **MD007** — Indent nested list items consistently (typically 2 spaces per level).
+- **MD029** — Ordered lists: one marker style per file (e.g. `1.` only).
+- **MD030** — One space after the list marker (`- item`, not `-item`).
+- **MD032** — Blank line **before** and **after** lists when adjacent to other block elements.
+
+## Code fences and spacing
+
+- **MD031** — Blank line before and after **fenced** code blocks.
+- **MD040** — Fenced blocks include a **language** identifier when applicable (`bash`, `yaml`, `nginx`, `markdown`, etc.).
+- **MD046** — Use fenced code blocks (backticks) consistently unless indented code is intentional.
+
+## Whitespace and lines
+
+- **MD009** — No trailing spaces at end of line.
+- **MD010** — Spaces, not hard tabs, in Markdown.
+- **MD012** — No multiple consecutive blank lines (usually max one blank line).
+- **MD013** — Respect line length when the rule is enabled (default is often 80; many projects disable or raise it — check config).
+
+## Links, emphasis, other
+
+- **MD034** — Wrap bare URLs in `<>` or `[text](url)`.
+- **MD033** — Avoid raw HTML unless the project allows it.
+- **MD036** — Do not fake headings with bold/italic alone; use real heading syntax.
+- **MD037 / MD038 / MD039** — No spaces inside emphasis markers, `` `code` ``, or link text/destinations that break the span.
+- **MD041** — First line is a top-level heading when this rule is enabled.
+
+## When editing
+
+- Prefer fixes that clear the specific **MD0xx** warning rather than disabling rules in prose.
+- If markdownlint reports a violation, obey **`.markdownlint.json`** in the repo root when present; otherwise use the defaults above.
