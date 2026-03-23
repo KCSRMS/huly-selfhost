@@ -12,6 +12,6 @@ huly_v7.conf
 .idea
 
 .specstory
-.cursor/*
-!.cursor/rules/
-!.cursor/rules/**
+# .cursor/*
+# !.cursor/rules/
+# !.cursor/rules/**
