@@ -1,4 +1,5 @@
 kcsrms.env
+.tmp-signin.json
 
 letsencrypt/
 traefik/docker-compose.yaml

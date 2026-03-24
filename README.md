@@ -435,6 +435,8 @@ sudo docker logs -f mail
 
 If you're experiencing issues with email delivery, see the [SMTP Troubleshooting Guide](guides/smtp-troubleshooting.md) for comprehensive debugging steps and solutions.
 
+To obtain a **login JWT** for API clients or integrations (curl and a JSON file), see [Account JWT token](guides/account-jwt-token.md).
+
 ### Notes
 
 1. SMTP and SES configurations cannot be used simultaneously.
